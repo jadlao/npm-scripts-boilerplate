@@ -1,0 +1,45 @@
+{
+  "name": "npm",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    // runs lite server and json server at the same time
+    "start": "concurrently -k \"npm run dev\" \"npm run db\"",
+    
+    // servers
+    "dev": "lite-server",
+    "db": "json-server --watch db.json --port 3005",
+    
+    // minifies js files and move into desired directory
+    "build-js": "mkdir -p dist/js && uglifyjs src/js/*.js -m -o dist/js/app.js",
+    
+    // detects errors and problems in js files in src folder
+    "lint": "jshint src/**.js",
+    
+    // compiles scss to css
+    "build-css": "node-sass --include-path scss scss/main.scss assets/main.css",
+    // monitors for changes and reloads server
+    "watch-css": "nodemon -e scss -x \"npm run build-css\"",
+    
+    // mocha helps write test cases
+    "test": "mocha test",
+    "pretest": "npm run lint",
+    "posttest": "echo the test has been run!",
+
+    // if making lots of commands inside scripts object
+    "bash": "Location of the Bash/Shell script file"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    // install by: npm i -D jshint lite-server mocha concurrently node-sass uglify-js 
+    "concurrently": "^3.5.0",
+    "jshint": "^2.9.5",
+    "lite-server": "^2.3.0",
+    "mocha": "^3.5.0",
+    "node-sass": "^4.5.3",
+    "uglify-js": "^3.0.28"
+  }
+}
